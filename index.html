@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f4efe6">
-    <title>RetroLens — Fotos con filtro</title>
+    <meta name="theme-color" content="#123c32">
+    <title>Un regalo para ti</title>
     <style>
       :root {
-        color-scheme: light;
+        color-scheme: dark;
         font-family: "Segoe UI", Arial, sans-serif;
-        color: #24211d;
-        background: #f4efe6;
+        color: #fff8e9;
+        background: #123c32;
         font-synthesis: none;
         text-rendering: optimizeLegibility;
       }
@@ -20,347 +20,267 @@
       }
 
       body {
+        display: grid;
         min-width: 320px;
         min-height: 100vh;
         margin: 0;
-        padding: 32px 20px 56px;
+        padding: 24px;
+        place-items: center;
+        overflow: hidden;
         background:
-          radial-gradient(ellipse at 10% 0%, rgba(245, 196, 123, 0.28), transparent 34rem),
-          #f4efe6;
+          radial-gradient(ellipse at 50% 110%, rgba(201, 49, 55, 0.35), transparent 55%),
+          radial-gradient(ellipse at 50% 0%, rgba(247, 210, 128, 0.13), transparent 48%),
+          #123c32;
       }
 
-      button,
-      select {
-        font: inherit;
+      .card {
+        width: min(100%, 520px);
+        text-align: center;
       }
 
-      .app-shell {
-        width: min(100%, 1020px);
-        margin: 0 auto;
-      }
-
-      .app-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 24px;
-      }
-
-      .brand {
-        margin: 0 0 6px;
-        color: #a64b2a;
-        font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 0.16em;
+      .greeting {
+        margin: 0 0 10px;
+        color: #f3d48e;
+        font-size: 13px;
+        font-weight: 750;
+        letter-spacing: 0.24em;
         text-transform: uppercase;
-      }
-
-      h1,
-      h2,
-      p {
-        margin-top: 0;
       }
 
       h1 {
-        margin-bottom: 0;
+        margin: 0;
         font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(30px, 5vw, 46px);
+        font-size: clamp(36px, 8vw, 58px);
         font-weight: 500;
-        letter-spacing: -0.04em;
       }
 
-      .photo-count {
-        flex: 0 0 auto;
-        padding: 9px 13px;
-        border: 1px solid #d8cfc0;
-        border-radius: 999px;
-        color: #665c50;
-        font-size: 13px;
-        font-weight: 650;
+      .instruction {
+        margin: 14px 0 30px;
+        color: #d7e3d6;
+        font-size: 16px;
       }
 
-      .studio-panel {
-        padding: 14px;
-        border: 1px solid #e1d8ca;
-        border-radius: 22px;
-        background: #fffdf9;
-        box-shadow: 0 18px 50px rgba(63, 45, 28, 0.09);
-      }
-
-      .camera-frame {
+      .gift-button {
         position: relative;
         display: grid;
-        min-height: 220px;
-        overflow: hidden;
-        aspect-ratio: 16 / 10;
+        width: 220px;
+        height: 220px;
+        margin: 0 auto;
+        padding: 0;
         place-items: center;
-        border-radius: 14px;
-        background: #211d1a;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
       }
 
-      .camera-frame video {
+      .gift-button:focus-visible {
+        outline: 3px solid #f3d48e;
+        outline-offset: 10px;
+        border-radius: 12px;
+      }
+
+      .gift {
+        position: relative;
         display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transform: scaleX(-1);
+        width: 150px;
+        height: 125px;
+        margin-top: 30px;
+        border: 3px solid #f3d48e;
+        border-radius: 8px;
+        background: #c9343d;
+        box-shadow: 0 18px 36px rgba(0, 0, 0, 0.23);
+        transition: transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1);
       }
 
-      .camera-placeholder {
+      .gift::before,
+      .gift::after {
         position: absolute;
-        inset: 0;
-        display: grid;
-        padding: 24px;
-        place-content: center;
-        color: #f3eadc;
-        text-align: center;
+        display: block;
+        content: "";
+        background: #f3d48e;
       }
 
-      .camera-placeholder[hidden] {
+      .gift::before {
+        top: 0;
+        bottom: 0;
+        left: 58px;
+        width: 26px;
+      }
+
+      .gift::after {
+        top: -25px;
+        left: -9px;
+        width: 162px;
+        height: 29px;
+        border: 3px solid #f3d48e;
+        border-radius: 6px;
+        background: #d8464c;
+      }
+
+      .bow {
+        position: absolute;
+        z-index: 1;
+        top: -58px;
+        left: 51px;
+        width: 48px;
+        height: 37px;
+        border: 8px solid #f3d48e;
+        border-radius: 50% 50% 12% 50%;
+        transform: rotate(20deg);
+      }
+
+      .bow::after {
+        position: absolute;
+        top: -8px;
+        left: 25px;
+        width: 48px;
+        height: 37px;
+        border: 8px solid #f3d48e;
+        border-radius: 50% 50% 50% 12%;
+        content: "";
+        transform: rotate(-40deg);
+      }
+
+      .gift-button:hover .gift,
+      .gift-button:focus-visible .gift {
+        transform: translateY(-8px) rotate(-3deg);
+      }
+
+      .gift-button[aria-expanded="true"] .gift {
+        transform: translateY(28px) scale(0.86);
+      }
+
+      .gift-button[aria-expanded="true"] .bow {
+        transform: translate(-18px, -38px) rotate(-28deg);
+      }
+
+      .message {
+        min-height: 86px;
+        margin: 18px 0 0;
+        color: #f3d48e;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(23px, 5vw, 32px);
+        line-height: 1.35;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: opacity 350ms ease, transform 350ms ease;
+      }
+
+      .message.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .bird-scene {
+        position: relative;
+        height: 74px;
+        margin: 4px auto 0;
+        opacity: 0;
+        transition: opacity 350ms ease;
+      }
+
+      .bird-scene.is-visible {
+        opacity: 1;
+      }
+
+      .bird {
+        position: absolute;
+        top: 8px;
+        font-size: 34px;
+        animation: peck 700ms ease-in-out infinite alternate;
+      }
+
+      .bird-left {
+        left: calc(50% - 76px);
+        animation-delay: 120ms;
+      }
+
+      .bird-right {
+        right: calc(50% - 76px);
+        transform: scaleX(-1);
+        animation-delay: 420ms;
+      }
+
+      .crumbs {
+        position: absolute;
+        top: 43px;
+        left: 50%;
+        color: #f3d48e;
+        font-size: 17px;
+        letter-spacing: 3px;
+        transform: translateX(-50%);
+      }
+
+      @keyframes peck {
+        from {
+          translate: 0 0;
+        }
+
+        to {
+          translate: 0 7px;
+        }
+      }
+
+      .hint {
+        margin: 0;
+        color: #d7e3d6;
+        font-size: 14px;
+      }
+
+      .hint[hidden] {
         display: none;
       }
 
-      .camera-placeholder strong {
-        margin-bottom: 8px;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 25px;
-        font-weight: 500;
-      }
-
-      .camera-placeholder span {
-        color: #c9bdae;
-        font-size: 14px;
-        line-height: 1.5;
-      }
-
-      .controls {
-        display: flex;
-        align-items: end;
-        gap: 12px;
-        padding: 18px 4px 4px;
-      }
-
-      .filter-control {
-        display: grid;
-        flex: 1 1 auto;
-        gap: 7px;
-        color: #675e53;
-        font-size: 12px;
-        font-weight: 750;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-      }
-
-      .filter-control select {
-        width: 100%;
-        min-height: 48px;
-        padding: 0 40px 0 14px;
-        border: 1px solid #d8cfc0;
-        border-radius: 10px;
-        outline-color: #b25732;
-        background: #fffdf9;
-        color: #28231f;
-        font-size: 15px;
-        letter-spacing: normal;
-        text-transform: none;
-      }
-
-      .primary-button {
-        min-height: 48px;
-        padding: 0 26px;
-        border: 0;
-        border-radius: 10px;
-        background: #b25732;
-        color: #fffaf3;
-        cursor: pointer;
-        font-weight: 750;
-        transition: background 150ms ease, transform 150ms ease;
-      }
-
-      .primary-button:hover:not(:disabled) {
-        transform: translateY(-1px);
-        background: #934324;
-      }
-
-      .primary-button:focus-visible,
-      .filter-control select:focus-visible {
-        outline: 3px solid #e5a56e;
-        outline-offset: 3px;
-      }
-
-      .primary-button:disabled {
-        cursor: wait;
-        opacity: 0.72;
-      }
-
-      .status {
-        min-height: 22px;
-        margin: 12px 4px 2px;
-        color: #64594c;
-        font-size: 14px;
-        line-height: 1.5;
-      }
-
-      .gallery-section {
-        margin-top: 40px;
-      }
-
-      .gallery-heading {
-        display: flex;
-        align-items: baseline;
-        justify-content: space-between;
-        gap: 12px;
-        margin-bottom: 16px;
-      }
-
-      .gallery-heading h2 {
-        margin-bottom: 0;
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 27px;
-        font-weight: 500;
-      }
-
-      .gallery-note {
-        margin-bottom: 0;
-        color: #766b5f;
-        font-size: 13px;
-      }
-
-      .gallery {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-        gap: 16px;
-      }
-
-      .empty-gallery {
-        grid-column: 1 / -1;
-        padding: 30px 18px;
-        border: 1px dashed #cfc3b2;
-        border-radius: 14px;
-        color: #766b5f;
-        text-align: center;
-      }
-
-      .photo-card {
-        overflow: hidden;
-        border: 1px solid #e1d8ca;
-        border-radius: 14px;
-        background: #fffdf9;
-        box-shadow: 0 8px 24px rgba(63, 45, 28, 0.06);
-      }
-
-      .photo-card img {
-        display: block;
-        width: 100%;
-        aspect-ratio: 4 / 3;
-        object-fit: cover;
-        background: #e8dfd3;
-      }
-
-      .photo-details {
-        padding: 12px 14px 14px;
-      }
-
-      .photo-filter {
-        margin-bottom: 4px;
-        font-size: 14px;
-        font-weight: 750;
-      }
-
-      .photo-date {
-        margin-bottom: 0;
-        color: #766b5f;
-        font-size: 12px;
-      }
-
-      @media (max-width: 560px) {
-        body {
-          padding: 22px 14px 40px;
-        }
-
-        .app-header {
-          align-items: start;
-        }
-
-        .photo-count {
-          padding: 8px 10px;
-          font-size: 12px;
-        }
-
-        .studio-panel {
-          padding: 10px;
-          border-radius: 17px;
-        }
-
-        .camera-frame {
-          min-height: 220px;
-          aspect-ratio: 4 / 3;
-        }
-
-        .controls {
-          align-items: stretch;
-          flex-direction: column;
-        }
-
-        .primary-button {
-          width: 100%;
-        }
-
-        .gallery-heading {
-          align-items: start;
-          flex-direction: column;
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
         }
       }
     </style>
   </head>
   <body>
-    <main class="app-shell">
-      <header class="app-header">
-        <div>
-          <p class="brand">RetroLens · Cámara creativa</p>
-          <h1>Tu momento, tu filtro.</h1>
-        </div>
-        <span id="photoCount" class="photo-count">0 fotos guardadas</span>
-      </header>
-
-      <section class="studio-panel" aria-label="Cámara y filtros">
-        <div class="camera-frame">
-          <video id="video" autoplay muted playsinline aria-label="Vista previa de la cámara"></video>
-          <div id="cameraPlaceholder" class="camera-placeholder">
-            <strong>Tu próxima foto empieza aquí</strong>
-            <span>Elige un filtro y pulsa Iniciar para activar la cámara.</span>
-          </div>
-        </div>
-        <div class="controls">
-          <label class="filter-control" for="filterSelect">
-            Filtro
-            <select id="filterSelect">
-              <option value="original">Original</option>
-              <option value="vintage">Vintage</option>
-              <option value="mono">Blanco y negro</option>
-              <option value="rose">Rosa suave</option>
-              <option value="cool">Tono frío</option>
-              <option value="pop">Color intenso</option>
-            </select>
-          </label>
-          <button id="startButton" class="primary-button" type="button">Iniciar</button>
-        </div>
-        <p id="status" class="status" role="status" aria-live="polite">
-          Permite el acceso a la cámara cuando el navegador te lo pida.
-        </p>
-      </section>
-
-      <section class="gallery-section" aria-labelledby="galleryTitle">
-        <div class="gallery-heading">
-          <h2 id="galleryTitle">Mis fotos</h2>
-          <p class="gallery-note">Tus fotos se guardan aquí y no se pueden borrar desde la página.</p>
-        </div>
-        <div id="gallery" class="gallery" aria-live="polite">
-          <p id="emptyGallery" class="empty-gallery">Todavía no hay fotos. ¡Haz la primera!</p>
-        </div>
-      </section>
+    <main class="card">
+      <p class="greeting">Un detalle para ti</p>
+      <h1>¡Feliz Navidad!</h1>
+      <p class="instruction">Tienes un regalo. ¿Te animas a abrirlo?</p>
+      <button
+        id="giftButton"
+        class="gift-button"
+        type="button"
+        aria-label="Abrir regalo de Navidad"
+        aria-expanded="false"
+        aria-controls="giftMessage"
+      >
+        <span class="gift" aria-hidden="true"><span class="bow"></span></span>
+      </button>
+      <p id="giftMessage" class="message" role="status" aria-live="polite"></p>
+      <div id="birdScene" class="bird-scene" aria-hidden="true">
+        <span class="bird bird-left">🐦</span>
+        <span class="bird bird-right">🐦</span>
+        <span class="crumbs">· · · · ·</span>
+      </div>
+      <p id="hint" class="hint">Haz clic en el regalo</p>
     </main>
-    <script src="retrolens.js" defer></script>
+    <script>
+      const giftButton = document.querySelector("#giftButton");
+      const giftMessage = document.querySelector("#giftMessage");
+      const birdScene = document.querySelector("#birdScene");
+      const hint = document.querySelector("#hint");
+
+      giftButton.addEventListener("click", () => {
+        giftButton.setAttribute("aria-expanded", "true");
+        giftMessage.textContent =
+          "¡Felicidades, eres un cachudo! 🎄 Y también migajer@… especialmente pa Nicole.";
+        giftMessage.classList.add("is-visible");
+        birdScene.classList.add("is-visible");
+        hint.hidden = true;
+      });
+    </script>
   </body>
 </html>
